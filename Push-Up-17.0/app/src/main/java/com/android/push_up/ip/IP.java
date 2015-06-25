@@ -5,7 +5,7 @@ package com.android.push_up.ip;
  */
 public class IP {
     public static String getIP(){
-        String IPAddress = "172.24.7.177";
+        String IPAddress = "172.28.18.20";
         return IPAddress;
     }
 }
