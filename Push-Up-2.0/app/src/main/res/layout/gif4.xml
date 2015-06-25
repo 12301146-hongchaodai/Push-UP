@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="把妹版"
+        android:textSize="40dp"
+        android:textColor="#FFFFFF"
+        android:gravity="center"/>
+
+    <com.ant.liao.GifView
+        android:id="@+id/gif4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="身体绷直，双脚微张，两臂距离宽于双肩，身体伏低几乎贴到底面，最后回到初始状态后双手离开底面击掌一次"
+        android:textSize="15dp"
+        android:textColor="#FFFFFF"
+        android:gravity="center"/>
+
+</LinearLayout>
