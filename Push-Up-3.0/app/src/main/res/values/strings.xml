@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Push-Up</string>
+    <string name="title_activity_guide">GuideActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_count">CountActivity</string>
+    <string name="title_activity_gif">GifActivity</string>
+    <string name="title_activity_plan_count">PlanCountActivity</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+</resources>
