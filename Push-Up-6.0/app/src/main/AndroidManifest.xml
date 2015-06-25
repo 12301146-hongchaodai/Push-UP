@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.push_up.guide" >
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
 
     <application
         android:allowBackup="true"
@@ -12,10 +16,13 @@
         <activity android:name=".GuideActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.android.push_up.home.HomeActivity" >
+        <activity android:name="com.android.push_up.home.HomeActivity"
+            android:configChanges="orientation|keyboardHidden">
+
         </activity>
         <activity android:name="com.android.push_up.count.CountActivity" >
         </activity>
@@ -23,14 +30,17 @@
         </activity>
         <activity android:name="com.android.push_up.count.PlanCountActivity" >
         </activity>
-        <activity android:name="com.android.push_up.alert.AlarmActivity" >
+        <activity android:name="com.android.push_up.alarm.AlarmActivity" >
         </activity>
 
-        <receiver android:name="com.android.push_up.alert.AlarmReceiver">
+        <receiver android:name="com.android.push_up.alarm.AlarmReceiver" >
             <intent-filter>
-                <action android:name="com.android.push_up.alert.AlarmReceiver" android:enabled="true"/>
+                <action
+                    android:name="com.android.push_up.alert.AlarmReceiver"
+                    android:enabled="true" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

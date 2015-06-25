@@ -23,5 +23,12 @@
         android:text="查看计划"
         android:id="@+id/btnCheckPlan" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="拍  照"
+        android:id="@+id/btnTakePhoto" />
+
 </LinearLayout>
 </ScrollView>

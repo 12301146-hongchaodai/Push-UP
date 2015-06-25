@@ -1,4 +1,4 @@
-package com.android.push_up.alert;
+package com.android.push_up.alarm;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -12,7 +12,6 @@ import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -23,13 +22,15 @@ import com.android.push_up.guide.R;
 
 public class AlarmActivity extends ActionBarActivity {
 
-    private CheckBox cbOpenAlarm;
     private LinearLayout alarmRecord;
-    private TextView tvAlarmRecord;
+    private CheckBox cbOpenAlarm;
     private CheckBox cbOpenVibrator;
+    private CheckBox cbOpenNotify;
+    private TextView tvAlarmRecord;
     private SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     public static Vibrator vib;
+    SharedPreferences.Editor editor;
+    Boolean isFirstLoad = true;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class AlarmActivity extends ActionBarActivity {
         vib = (Vibrator) getApplication().getSystemService(Service.VIBRATOR_SERVICE);
         cbOpenAlarm = (CheckBox) findViewById(R.id.cbOpenAlarm);
         cbOpenVibrator = (CheckBox) findViewById(R.id.cbOpenVibrator);
+        cbOpenNotify = (CheckBox) findViewById(R.id.cbOpenNotify);
         sharedPreferences = getSharedPreferences("alarm_record", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -66,6 +68,19 @@ public class AlarmActivity extends ActionBarActivity {
             }
         });
 
+        cbOpenNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editor.putBoolean("openNotify",true);
+                }
+                else{
+                    editor.putBoolean("openNotify",false);
+                }
+                editor.commit();
+            }
+        });
+
         alarmRecord = (LinearLayout) findViewById(R.id.alarmRecord);
         tvAlarmRecord = (TextView) findViewById(R.id.tvAlarmRecord);
         alarmRecord.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +103,7 @@ public class AlarmActivity extends ActionBarActivity {
                                     timeMinN = timeMinO;
                                 }
                                 String timeStr = timeHour + ":" + timeMinN;
-                                tvAlarmRecord.setText(timeStr);
+                                tvAlarmRecord.setText("时间: " + timeStr);
 
                                 editor.putString("timeSet",timeStr);
                                 editor.commit();
@@ -97,7 +112,7 @@ public class AlarmActivity extends ActionBarActivity {
             }
         });
 
-        tvAlarmRecord.setText(sharedPreferences.getString("timeSet","00:00"));
+        tvAlarmRecord.setText("时间: " + sharedPreferences.getString("timeSet","00:00"));
         if(sharedPreferences.getBoolean("openAlarm",false)){
             cbOpenAlarm.setChecked(true);
         }
@@ -112,12 +127,24 @@ public class AlarmActivity extends ActionBarActivity {
             cbOpenVibrator.setChecked(false);
         }
 
-        //开启闹钟服务返回alarmManager对象
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        //封装Intent动作
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //一分钟重复一次
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 0, 60000, pendingIntent);
+        if(sharedPreferences.getBoolean("openNotify",false)){
+            cbOpenNotify.setChecked(true);
+        }
+        else{
+            cbOpenNotify.setChecked(false);
+        }
+
+        if(sharedPreferences.getBoolean("isFirstLoad",true)){
+            //开启闹钟服务返回alarmManager对象
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            //封装Intent动作
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            //一分钟重复一次
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 0, 60000, pendingIntent);
+
+            editor.putBoolean("isFirstLoad",false);
+            editor.commit();
+        }
     }
 }

@@ -67,6 +67,12 @@ public class PlanCountActivity extends ActionBarActivity {
                     @Override
                     public void onClick(View v) {
                         //数据保存代码
+                        //获取俯卧撑个数
+                        int count = Integer.parseInt(textViewPlanCount.getText().toString());
+                        //根据个数进行判断分类生成计划
+                        if(count > 100){
+
+                        }
                         popupPlanWindow.dismiss();
                     }
                 });

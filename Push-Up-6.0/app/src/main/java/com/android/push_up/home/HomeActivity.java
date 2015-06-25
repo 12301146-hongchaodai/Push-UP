@@ -1,7 +1,9 @@
 package com.android.push_up.home;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -28,6 +30,13 @@ public class HomeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        sharedPreferences = getSharedPreferences("alarm_record", Context.MODE_PRIVATE);
+        //点击应用关闭状态栏通知
+        if(sharedPreferences.getBoolean("notify",false)){
+            NotificationManager notificationManager = (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(1);
+        }
 
         imageMe = (ImageView) findViewById(R.id.home_tab_me);
         imageTeach = (ImageView) findViewById(R.id.home_tab_teach);
@@ -96,5 +105,8 @@ public class HomeActivity extends ActionBarActivity {
                 editor.commit();
             }
         });
+
+
     }
+
 }
