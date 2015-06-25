@@ -4,7 +4,6 @@ package com.android.push_up.home;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,6 @@ import com.android.push_up.alarm.AlarmActivity;
 import com.android.push_up.guide.R;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 
@@ -57,7 +52,7 @@ public class SetFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < fileList.size() ; i++){
-                    UploadUtil.uploadFile(fileList.get(i),getActivity(),"http://172.28.0.228:8888/upload_file_service/UploadServlet");
+                    UploadUtil.uploadFile(fileList.get(i),getActivity(),"http://172.24.7.58:8888/upload_file_service/UploadServlet?MyDir=" + "my");
                 }
             }
         });
