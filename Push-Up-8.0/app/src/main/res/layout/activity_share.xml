@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.push_up.share.ShareActivity">
+
+    <!--底部按钮-->
+    <RelativeLayout
+        android:id="@+id/PhotoAndShare"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f28f8f8f">
+
+        <ImageView
+            android:id="@+id/ivTakePhoto"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/camera"
+            android:scaleType="fitXY"/>
+
+        </RelativeLayout>
+
+    <!--分割线-->
+    <LinearLayout
+        android:id="@+id/share_line"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ff8f8f8f"
+        android:layout_above="@+id/PhotoAndShare">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/share_line">
+
+        <GridView
+            android:id="@+id/girdView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchMode="columnWidth"
+            android:numColumns="3"
+            android:verticalSpacing="5dp"
+            android:horizontalSpacing="10dp"
+            android:padding="4dp"></GridView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

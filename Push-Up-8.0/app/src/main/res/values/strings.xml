@@ -12,4 +12,5 @@
     <string name="title_activity_plan_count">PlanCountActivity</string>
     <string name="title_activity_alarm">AlarmActivity</string>
     <string name="title_activity_share">ShareActivity</string>
+    <string name="title_activity_query_data">QueryDataActivity</string>
 </resources>

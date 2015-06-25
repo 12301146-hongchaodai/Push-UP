@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.android.push_up.guide.R;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,6 +30,8 @@ public class ImageAdapter extends BaseAdapter {
 
     private Context context;
     private List<Map<String, Object>> mapList;
+    private boolean gridViewItemState[];
+
     public ImageAdapter(Context context,List<Map<String, Object>> mapList){
         this.context = context;
         this.mapList = mapList;
@@ -55,7 +59,7 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView iv = new ImageView(context);
-        iv.setScaleType(ImageView.ScaleType.CENTER);//缩放方式
+        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);//缩放方式
         iv.setLayoutParams(new GridView.LayoutParams(100,100));//调整布局，指定图片以100 * 100显示
         Map<String,Object> map = mapList.get(position);
         String fName = (String) map.get("fName");

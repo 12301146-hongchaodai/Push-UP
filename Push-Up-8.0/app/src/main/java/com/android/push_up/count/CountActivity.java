@@ -1,15 +1,19 @@
 package com.android.push_up.count;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +25,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.android.push_up.guide.R;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class CountActivity extends ActionBarActivity {
 
@@ -72,6 +79,30 @@ public class CountActivity extends ActionBarActivity {
                     @Override
                     public void onClick(View v) {
                         //数据保存代码
+                        //获取当前计数数目
+                        int count = Integer.parseInt(CountActivity.this.textViewCount.getText().toString());
+                        String time = new DateFormat().format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)).toString();
+                        DataToSQLite dataToSQLite = new DataToSQLite(CountActivity.this);
+                        SQLiteDatabase dbWrite = dataToSQLite.getWritableDatabase();
+                        ContentValues cv = new ContentValues();
+                        cv.put("username","admin");
+                        cv.put("time",time);
+                        cv.put("count",count);
+                        dbWrite.insert("count",null,cv);
+
+                        dbWrite.close();
+
+                        //数据读取
+                        SQLiteDatabase dbRead = dataToSQLite.getReadableDatabase();
+                        Cursor cursor = dbRead.query("count", null, null, null, null, null, null);
+                        while(cursor.moveToNext()){
+                            int db_Id = cursor.getInt(cursor.getColumnIndex("_id"));
+                            String dbUsername = cursor.getString(cursor.getColumnIndex("username"));
+                            String dbTime = cursor.getString(cursor.getColumnIndex("time"));
+                            int dbCount = cursor.getInt(cursor.getColumnIndex("count"));
+                            System.out.println(String.format("_id=%d,username=%s,time=%s,count=%s",db_Id,dbUsername,dbTime,dbCount));
+                        }
+                        dbRead.close();
                         popupWindow.dismiss();
                     }
                 });

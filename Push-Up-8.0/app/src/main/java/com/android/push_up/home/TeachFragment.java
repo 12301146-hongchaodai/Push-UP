@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.push_up.count.CountActivity;
+import com.android.push_up.count.QueryDataActivity;
 import com.android.push_up.gif.GifActivity;
 import com.android.push_up.guide.R;
 
@@ -40,7 +41,7 @@ public class TeachFragment extends Fragment {
         teachView.findViewById(R.id.btnShowRecord).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), QueryDataActivity.class));
             }
         });
 

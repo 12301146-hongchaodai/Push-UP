@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.push_up.guide" >
 
+    <uses-sdk android:minSdkVersion="11"/>
+
+
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -40,8 +43,10 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name="com.android.push_up.share.ShareActivity" >
+        </activity>
         <activity
-            android:name="com.android.push_up.share.ShareActivity" >
+            android:name="com.android.push_up.count.QueryDataActivity">
         </activity>
     </application>
 
