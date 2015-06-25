@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Push-Up</string>
+    <string name="title_activity_guide">GuideActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_count">CountActivity</string>
+    <string name="title_activity_gif">GifActivity</string>
+    <string name="title_activity_plan_count">PlanCountActivity</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_share">ShareActivity</string>
+    <string name="title_activity_query_data">QueryDataActivity</string>
+    <string name="title_activity_my_plan">MyPlanActivity</string>
+    <string name="title_activity_diet_plan">DietPlanActivity</string>
+    <string name="title_activity_matter">MatterActivity</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+</resources>
