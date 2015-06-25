@@ -30,7 +30,6 @@ public class AlarmActivity extends ActionBarActivity {
     private SharedPreferences sharedPreferences;
     public static Vibrator vib;
     SharedPreferences.Editor editor;
-    Boolean isFirstLoad = true;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,17 +133,12 @@ public class AlarmActivity extends ActionBarActivity {
             cbOpenNotify.setChecked(false);
         }
 
-        if(sharedPreferences.getBoolean("isFirstLoad",true)){
-            //开启闹钟服务返回alarmManager对象
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(this, AlarmReceiver.class);
-            //封装Intent动作
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            //一分钟重复一次
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 0, 60000, pendingIntent);
-
-            editor.putBoolean("isFirstLoad",false);
-            editor.commit();
-        }
+        //开启闹钟服务返回alarmManager对象
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        //封装Intent动作
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //一分钟重复一次
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 0, 60000, pendingIntent);
     }
 }

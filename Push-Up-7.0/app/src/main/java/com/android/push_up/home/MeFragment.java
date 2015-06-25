@@ -1,9 +1,7 @@
 package com.android.push_up.home;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +16,7 @@ import android.widget.Toast;
 
 import com.android.push_up.count.PlanCountActivity;
 import com.android.push_up.guide.R;
+import com.android.push_up.share.ShareActivity;
 
 import java.io.File;
 import java.util.Calendar;
@@ -50,7 +48,7 @@ public class MeFragment extends Fragment {
                 String sdStatus = Environment.getExternalStorageState();//获取SD卡状态
                 if(sdStatus.equals(Environment.MEDIA_MOUNTED)){//sd卡状态良好
                     //创建文件目录和图像文件名称
-                    File filePath = new File("/sdcard/Push-Up/");
+                    File filePath = new File("/sdcard/Push-Up/Image/");
                     if(!filePath.exists()){
                         filePath.mkdirs();
                     }
@@ -58,13 +56,20 @@ public class MeFragment extends Fragment {
                     String fileName =  new DateFormat().format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";
                     Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     photoIntent.putExtra(MediaStore.Images.Media.ORIENTATION,0);
-                    photoIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(new File("/sdcard/Push-Up/"+fileName)));
+                    photoIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(new File("/sdcard/Push-Up/Image/"+fileName)));
                     Toast.makeText(getActivity(),fileName + "已保存",Toast.LENGTH_SHORT);
                     startActivity(photoIntent);
                 }
                 else{
                     Toast.makeText(getActivity(),"没有存储卡",Toast.LENGTH_SHORT);
                 }
+            }
+        });
+
+        meView.findViewById(R.id.btnShare).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ShareActivity.class));
             }
         });
 
