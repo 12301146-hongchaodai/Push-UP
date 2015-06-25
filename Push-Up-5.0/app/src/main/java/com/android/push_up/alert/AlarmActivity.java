@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -21,18 +23,52 @@ import com.android.push_up.guide.R;
 
 public class AlarmActivity extends ActionBarActivity {
 
-    private Button btnAddAlarm;
+    private CheckBox cbOpenAlarm;
+    private LinearLayout alarmRecord;
     private TextView tvAlarmRecord;
+    private CheckBox cbOpenVibrator;
     private SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     public static Vibrator vib;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
         vib = (Vibrator) getApplication().getSystemService(Service.VIBRATOR_SERVICE);
-        btnAddAlarm = (Button) findViewById(R.id.btnAddAlarm);
+        cbOpenAlarm = (CheckBox) findViewById(R.id.cbOpenAlarm);
+        cbOpenVibrator = (CheckBox) findViewById(R.id.cbOpenVibrator);
+        sharedPreferences = getSharedPreferences("alarm_record", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        cbOpenAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editor.putBoolean("openAlarm",true);
+                }
+                else{
+                    editor.putBoolean("openAlarm",false);
+                }
+                editor.commit();
+            }
+        });
+
+        cbOpenVibrator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editor.putBoolean("openVibrator", true);
+                }
+                else{
+                    editor.putBoolean("openVibrator", false);
+                }
+                editor.commit();
+            }
+        });
+
+        alarmRecord = (LinearLayout) findViewById(R.id.alarmRecord);
         tvAlarmRecord = (TextView) findViewById(R.id.tvAlarmRecord);
-        btnAddAlarm.setOnClickListener(new View.OnClickListener() {
+        alarmRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View view = getLayoutInflater().inflate(R.layout.alarm_set, null);
@@ -54,15 +90,27 @@ public class AlarmActivity extends ActionBarActivity {
                                 String timeStr = timeHour + ":" + timeMinN;
                                 tvAlarmRecord.setText(timeStr);
 
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("timeSet",timeStr);
                                 editor.commit();
                             }
                         }).setNegativeButton("取消", null).show();
             }
         });
-        sharedPreferences = getSharedPreferences("alarm_record", Context.MODE_PRIVATE);
-        tvAlarmRecord.setText(sharedPreferences.getString("timeSet",""));
+
+        tvAlarmRecord.setText(sharedPreferences.getString("timeSet","00:00"));
+        if(sharedPreferences.getBoolean("openAlarm",false)){
+            cbOpenAlarm.setChecked(true);
+        }
+        else{
+            cbOpenAlarm.setChecked(false);
+        }
+
+        if(sharedPreferences.getBoolean("openVibrator",false)){
+            cbOpenVibrator.setChecked(true);
+        }
+        else{
+            cbOpenVibrator.setChecked(false);
+        }
 
         //开启闹钟服务返回alarmManager对象
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

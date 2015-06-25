@@ -28,13 +28,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         else{
             now = hour + ":" + minute;
         }
-        String timeSet = sharedPreferences.getString("timeSet","");
-        View view = LayoutInflater.from(context).inflate(R.layout.alarmshow,null);
-        if (timeSet.equals(now))  {
-            final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.alarm);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-            AlarmActivity.vib.vibrate(3000);
+        String timeSet = sharedPreferences.getString("timeSet", "");
+        Boolean openAlarm = sharedPreferences.getBoolean("openAlarm",false);
+        Boolean openVibrator = sharedPreferences.getBoolean("openVibrator",false);
+        System.out.println(timeSet+" "+openAlarm+" "+openVibrator);
+        if(timeSet.equals(now)){
+            if(openAlarm){
+                final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.alarm);
+                mediaPlayer.setLooping(true);
+                mediaPlayer.start();
+            }
+            if(openVibrator){
+                AlarmActivity.vib.vibrate(2000);
+            }
         }
     }
 }
