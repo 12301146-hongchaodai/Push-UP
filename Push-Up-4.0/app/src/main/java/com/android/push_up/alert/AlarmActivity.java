@@ -3,10 +3,12 @@ package com.android.push_up.alert;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,10 +24,12 @@ public class AlarmActivity extends ActionBarActivity {
     private Button btnAddAlarm;
     private TextView tvAlarmRecord;
     private SharedPreferences sharedPreferences;
+    public static Vibrator vib;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
+        vib = (Vibrator) getApplication().getSystemService(Service.VIBRATOR_SERVICE);
         btnAddAlarm = (Button) findViewById(R.id.btnAddAlarm);
         tvAlarmRecord = (TextView) findViewById(R.id.tvAlarmRecord);
         btnAddAlarm.setOnClickListener(new View.OnClickListener() {

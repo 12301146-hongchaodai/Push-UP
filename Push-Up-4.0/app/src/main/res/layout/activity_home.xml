@@ -10,26 +10,27 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="#f28f8f8f">
 
         <ImageView
             android:id="@+id/home_tab_me"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/choose1"/>
+            android:src="@drawable/personwhite"/>
         <ImageView
             android:id="@+id/home_tab_teach"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/choose2"/>
+            android:src="@drawable/exwhite"/>
         <ImageView
             android:id="@+id/home_tab_set"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/choose3"/>
+            android:src="@drawable/settingwhite"/>
         </LinearLayout>
 
     <!--分割线-->

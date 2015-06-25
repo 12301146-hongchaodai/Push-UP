@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.android.push_up.guide.R;
 
@@ -27,10 +29,12 @@ public class AlarmReceiver extends BroadcastReceiver {
             now = hour + ":" + minute;
         }
         String timeSet = sharedPreferences.getString("timeSet","");
+        View view = LayoutInflater.from(context).inflate(R.layout.alarmshow,null);
         if (timeSet.equals(now))  {
-            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.alarm);
+            final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.alarm);
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
+            AlarmActivity.vib.vibrate(3000);
         }
     }
 }

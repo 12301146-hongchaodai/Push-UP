@@ -32,10 +32,6 @@ public class HomeActivity extends ActionBarActivity {
         imageMe = (ImageView) findViewById(R.id.home_tab_me);
         imageTeach = (ImageView) findViewById(R.id.home_tab_teach);
         imageSet = (ImageView) findViewById(R.id.home_tab_set);
-        home_tab = (LinearLayout) findViewById(R.id.home_tab);
-        home_tab.bringChildToFront(imageMe);
-        home_tab.bringChildToFront(imageTeach);
-        home_tab.bringChildToFront(imageSet);
 
         //读取文件
         sharedPreferences = getSharedPreferences("back_state", Context.MODE_PRIVATE);
@@ -46,20 +42,26 @@ public class HomeActivity extends ActionBarActivity {
         //关闭前页面是我
         if(stateMe){
             getSupportFragmentManager().beginTransaction().add(R.id.home_tab_container,new MeFragment()).commit();
+            imageMe.setImageResource(R.drawable.personblack);
         }
         //关闭前页面是教你
         if(stateTeach){
             getSupportFragmentManager().beginTransaction().add(R.id.home_tab_container, new TeachFragment()).commit();
+            imageTeach.setImageResource(R.drawable.exblack);
         }
         //关闭前页面是设置
         if(stateSet){
             getSupportFragmentManager().beginTransaction().add(R.id.home_tab_container,new SetFragment()).commit();
+            imageSet.setImageResource(R.drawable.settingblack);
         }
 
         imageMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_tab_container, new MeFragment()).commit();
+                imageMe.setImageResource(R.drawable.personblack);
+                imageTeach.setImageResource(R.drawable.exwhite);
+                imageSet.setImageResource(R.drawable.settingwhite);
                 editor.putBoolean("stateMe",true);
                 editor.putBoolean("stateTeach",false);
                 editor.putBoolean("stateSet", false);
@@ -71,6 +73,9 @@ public class HomeActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_tab_container, new TeachFragment()).commit();
+                imageTeach.setImageResource(R.drawable.exblack);
+                imageMe.setImageResource(R.drawable.personwhite);
+                imageSet.setImageResource(R.drawable.settingwhite);
                 editor.putBoolean("stateMe",false);
                 editor.putBoolean("stateTeach",true);
                 editor.putBoolean("stateSet", false);
@@ -82,6 +87,9 @@ public class HomeActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_tab_container, new SetFragment()).commit();
+                imageSet.setImageResource(R.drawable.settingblack);
+                imageMe.setImageResource(R.drawable.personwhite);
+                imageTeach.setImageResource(R.drawable.exwhite);
                 editor.putBoolean("stateMe",false);
                 editor.putBoolean("stateTeach",false);
                 editor.putBoolean("stateSet", true);
